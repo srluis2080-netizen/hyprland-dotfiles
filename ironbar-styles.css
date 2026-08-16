@@ -1,0 +1,119 @@
+/* Base de la barra transparente */
+.ironbar {
+    background-color: transparent;
+    font-family: "JetBrainsMono Nerd Font", sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/* Aplicar el diseño de píldora a todos los módulos */
+.workspaces, 
+#user-tag, 
+#bluetooth-tag, 
+#center-capsule,  
+#network-tag, 
+#cpu-uso,
+.volume, 
+.sys-info, 
+#menu-burger, 
+.clock, 
+#power-button,
+#system-tray,
+#power-profile,
+.mpris {
+    background-color: rgba(20, 21, 30, 0.85);
+    border: 1.5px solid #7aa2f7;
+    border-radius: 15px;
+    padding: 2px 12px;
+    margin: 0 4px;
+    color: #c0caf5;
+}
+
+/* --- ESTILOS ESPECÍFICOS Y COLORES --- */
+
+/* Workspaces */
+.workspaces button {
+    background: transparent;
+    color: #a9b1d6;
+    border: none;
+    border-radius: 10px;
+    padding: 0 6px;
+    margin: 0 2px;
+}
+
+.workspaces button.focused {
+    background-color: #7aa2f7;
+    color: #1a1b26;
+}
+
+/* Colores personalizados por píldora */
+#user-tag {
+    border-color: #bb9af7;
+    color: #bb9af7;
+}
+
+#power-button {
+    border-color: #f7768e;
+    color: #f7768e;
+}
+
+#center-capsule {
+    border-color: #7dcfff;
+    min-width: 70px;
+    min-height: 10px;
+}
+
+.mpris {
+    border-color: #7dcfff;
+    color: #7dcfff;
+    max-width: 250px;
+}
+
+#center-capsule {
+    background-color: rgba(20, 21, 30, 0.85);
+    border: 1.5px solid #7dcfff;
+    border-radius: 15px;
+    padding: 2px 14px;
+    margin: 0 4px;
+    color: #7dcfff;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#center-capsule:hover {
+    background-color: rgba(125, 207, 255, 0.15);
+}
+
+#system-tray {
+    padding: 0 8px;
+    margin: 0 4px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+}
+
+#system-tray image {
+    min-width: 16px;
+    min-height: 16px;
+    margin: 0 3px;
+}
+
+/* Estilo para el menú desplegable del botón de apagado */
+#power-button .popup {
+    background-color: #1e1e2e;
+    border: 1px solid #89b4fa;
+    border-radius: 12px;
+    padding: 8px;
+}
+
+#power-button .popup button {
+    background-color: transparent;
+    color: #cdd6f4;
+    padding: 6px 12px;
+    margin: 2px 0;
+    border-radius: 6px;
+}
+
+#power-button .popup button:hover {
+    background-color: #f38ba8;
+    color: #11111b;
+}
