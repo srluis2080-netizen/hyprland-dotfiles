@@ -1,0 +1,306 @@
+/* no esta del todo terminado y hay cosas repetidas */
+
+/* PALETA DE COLORES */
+@define-color bg_dark rgba(26, 27, 38, 0.6);
+@define-color accent_purple rgb(74, 199, 189);
+@define-color accent_blue #7aa2f7;
+@define-color accent_cyan #7dcfff;
+@define-color accent_green #5fe1e1;
+@define-color text_white #c0caf5;
+@define-color critical_red #f7768e;
+@define-color bg #1a1b26;
+@define-color fg #c0caf5;
+@define-color accent #7aa2f7;
+@define-color surface #24283b;
+@define-color urgent #f7768e;
+@define-color muted #565f89;
+@define-color critical_temperature #2E1A63;
+
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "JetBrainsMono Nerd Font", "Noto Sans CJK", sans-serif;
+    font-weight: bold;
+    font-size: 13px;
+    min-height: 0;  
+}
+
+window#waybar {
+    background: transparent;
+    background-color: @bg_dark;
+    border-bottom: 2px solid @accent_purple;
+    color: @forestgreen;
+    transition-property: background-color;
+    transition-duration: .5s;
+    border-radius: 15px; 
+    margin: 6px;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+/* MODULOS INDIVIDUALES */
+#battery,
+#cpu,
+#memory,
+#disk,
+#keyboard-state,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#bluetooth,
+#wireplumber,
+#tray,
+#mode,
+#user,
+#idle_inhibitor,
+#power-profiles-daemon,
+#custom-power,
+#custom-prev,
+#custom-play-pause,
+#custom-prev {
+    padding: 0 10px;
+    margin: 4px 2px;
+    border-bottom: 3px solid rgba(122, 162, 247, 0.5); 
+    transition: all 0.3s ease;
+    border-radius: 55px;
+    background-color: rgba(30, 30, 20, 0.09);
+}
+
+#custom-nightlight {
+    padding: 0 10px;
+    margin: 2px 2px;
+    border-bottom: 3px solid rgba(122, 162, 247, 0.5); 
+    transition: all 0.3s ease;
+    border-radius: 55px;
+    background-color: rgba(30, 30, 20, 0.09);
+}
+
+#battery:hover,
+#cpu:hover,
+#memory:hover,
+#disk:hover,
+#keyboard-state:hover,
+#temperature:hover,
+#user:hover,
+#tray:hover,
+#network:hover,
+#pulseaudio:hover,
+#bluetooth:hover,
+#wireplumber:hover,
+#custom-prev:hover,
+#custom-play-pause:hover,
+#custom-prev:hover,
+#custom-nightlight:hover,
+#power-profiles-daemon:hover,
+#custom-power:hover,
+#custom-media:hover {
+    border-bottom-color: #7dcfff; /* Cambia a un morado brillante al pasar el mouse */
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+#workspaces button {
+    padding: 0 4px;
+    background-color: rgba(79, 102, 148, 0.85);
+    color: @text_white;
+    border-bottom: 1px solid @accent_purple;
+    border-radius: 50px;
+    padding-bottom: 1px;
+}
+
+#workspaces button:hover {
+    background-color: rgba(89, 48, 143, 0.85);
+    border-bottom: 1px solid @accent_blue;
+    border-radius: 15px;
+}
+
+#workspaces button.focused, #workspaces button.active {
+    color: @accent_cyan;
+        background-color: rgba(166, 120, 211, 0.2);
+        border-bottom: 3px solid @accent_purple;
+        border-radius: 15px;
+    }
+
+#workspaces button.urgent {
+    background-color: #9899E0;
+    color: #ffffff;
+}
+
+#workspaces button.active {
+    background-color: @accent;
+    color: @bg;
+    border-radius: 15px;
+}
+
+
+
+#cpu {
+    color: @accent_blue;
+}
+
+#memory {
+    color: @accent_purple;
+}
+
+#temperature {
+    color: #9899E0;
+}
+
+#temperature.critical {
+    /*background-color: @critical_temperature;*/
+    background-color: #2D47AC;
+}
+
+#pulseaudio {
+    color: #7dcfff; /* Un ciano suave para el audio */
+    background: transparent; /* Sin fondo sólido para que se vea más minimalista */
+    padding: 0 10px;
+    margin: 0 5px;
+    border-bottom: 2px solid transparent;
+}
+
+#pulseaudio.muted {
+    color: #f7768e; 
+}
+
+#pulseaudio:hover {
+    border-bottom: 2px solid #7dcfff; 
+}
+
+#tray {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+#tray > .needs-attention {
+    background-color: @critical_red;
+}
+
+@keyframes blink {
+    to {
+        background-color: #ffffff;
+        color: @critical_red;
+    }
+}
+
+
+menu {
+    border-radius: 12px;
+    background: #1a1b26;
+    color: @text_white;
+    border: 1px solid @accent_purple;
+}
+
+
+#power-profiles-daemon {
+    padding-right: 15px;
+    padding-left: 15px;
+    border-bottom: 3px solid transparent; 
+    margin-bottom: 2px; 
+}
+
+
+#power-profiles-daemon.performance {
+    color: #f38ba8;
+    border-bottom: 3px solid #f38ba8;
+}
+
+
+#power-profiles-daemon.balanced {
+    color: #a6e3a1;
+    border-bottom: 3px solid #a6e3a1;
+}
+
+
+#power-profiles-daemon.power-saver {
+    color: #fab387;
+    border-bottom: 3px solid #fab387;
+}
+
+
+@keyframes breathe {
+    0% { box-shadow: 0 0 5px rgba(245, 194, 231, 0.2); }
+    50% { box-shadow: 0 0 15px rgba(245, 194, 231, 0.5); }
+    100% { box-shadow: 0 0 5px rgba(245, 194, 231, 0.2); }
+}
+
+/* Estilo para el módulo de Usuario y Uptime */
+#user {
+    background: rgba(20, 20, 30, 0.7);
+    color: #ffffff; /* Texto principal en blanco suave */
+    border-radius: 100px;
+    padding: 2px 10px;
+    margin: 2px 3px;
+    border: 2px solid;
+    font-weight: bold;
+    border-color: @accent_green;
+}
+
+/* Estilo para la bandeja del sistema (Contenedor invisible o sutil) */
+#tray {
+    background: rgba(20, 20, 30, 0.5);
+    border-radius: 12px;
+    padding: 0px 10px;
+    margin: 4px 5px;
+}
+
+#custom-power {
+    color:#ffffff;
+    font-size: 18px; 
+    background-color: transparent; 
+    border-radius: 80px; 
+    margin: 3px;
+    padding-left: 6px;
+    padding-right: 0px;
+    transition: all 0.3s ease;
+}
+
+#cpu, 
+#memory, 
+#clock,
+#custom-notification,
+#clock,
+#workspaces
+#tray,
+#power-profiles-daemon,
+#pulseaudio,
+#custom-nightlight,
+#temperature,
+#bluetooth, 
+#custom-power {
+    background-color: #1e1e2e;
+    border: 1px solid #89b4fa;
+    border-radius: 16px;
+    padding: 1px 12px;
+    margin: 2px 1px;
+}    
+
+/* Quita el fondo y márgenes del contenedor del grupo */
+#group-reloj-notification {
+    background-color: transparent;
+    padding: 0;
+    margin: 0 4px;
+}
+
+/* Lado izquierdo (Reloj) */
+#clock {
+    background-color: #1e1e2e;
+    color: #89b4fa;
+    border: 2px solid #89b4fa;
+    border-right: none;               /* Quita el borde derecho */
+    border-radius: 16px 0px 0px 16px; /* Solo redondea las esquinas izquierdas */
+    padding: 2px 6px;
+    margin-right: 0px;                /* Cero espacio a la derecha */
+}
+
+/* Lado derecho (Notificaciones) */
+#custom-notification {
+    background-color: #1e1e2e;
+    color: #89b4fa;
+    border: 2px solid #89b4fa;
+    border-left: none;                /* Quita el borde izquierdo */
+    border-radius: 0px 16px 16px 0px; /* Solo redondea las esquinas derechas */
+    padding: 3px 0px;
+    margin-left: 0px;                 /* Cero espacio a la izquierda */
+}
