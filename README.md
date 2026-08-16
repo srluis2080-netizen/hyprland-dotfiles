@@ -1,5 +1,19 @@
 # my-dotfile
 
+Fastfetch, Kitty y waybar
+
+<img width="1600" height="900" alt="image" src="https://github.com/user-attachments/assets/71f8ab48-2c35-448e-be69-cb10101bc5a8" />
+
+Ironbar (no terminada)
+
+<img width="1600" height="58" alt="image" src="https://github.com/user-attachments/assets/85d650e3-161e-416a-b4c3-811b4b9f23f5" />
+
+Swaync
+
+<img width="454" height="762" alt="image" src="https://github.com/user-attachments/assets/18ea3a8a-59b9-403c-84d1-b7f888498493" />
+
+
+
 Una configuración de **Hyprland** limpia, transparente y sin scripts complicados. 
 
 Este repositorio está pensado para que puedas **explorar, copiar y pegar** las partes que más te gusten, o llevarte la configuración completa sin tener que lidiar con automatizaciones raras ni herramientas difíciles de depurar. Ideal si estás empezando en el mundo de los *dotfiles*.
