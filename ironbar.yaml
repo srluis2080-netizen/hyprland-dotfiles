@@ -1,0 +1,142 @@
+# no esta terminado
+
+position: "top"
+height: 15
+width: 15
+
+# Margen para que la barra flote
+margin:
+  top: 5
+  bottom: 0
+  left: 5
+  right: 5
+
+# --- SECCIÓN IZQUIERDA ---
+start:
+  - type: "workspaces"
+    all_monitors: true
+    name_map:
+      "1": "1"
+      "2": "2"
+      "3": "3"
+      "4": "4"
+
+# Tu usuario y uptime dinámico
+  - type: "script"
+    name: "user-tag"
+    mode: "poll"
+    interval: 60000
+    cmd: |
+      UPTIME=$(uptime -p | sed 's/up //; s/ hours\?,/h/; s/ minutes\?/m/')
+      echo "SRLUIS2080 $UPTIME"
+
+# Bluetooth: Nombre del dispositivo + Batería real (con menú interactivo)
+  - type: "script"
+    name: "bluetooth-tag"
+    mode: "poll"
+    interval: 5000
+    # Al hacer clic abre la ventana para conectar/desconectar
+    on_click_left: "blueman-manager"
+    cmd: |
+      DEV=$(bluetoothctl info | awk -F': ' '/Name/ {print $2}')
+      BAT=$(bluetoothctl info | awk -F'[()]' '/Battery Percentage/ {print $2}')
+      if [ -n "$DEV" ]; then
+        echo " $DEV ${BAT:+$BAT%}"
+      else
+        echo " Desconectado"
+      fi
+
+# --- SECCIÓN CENTRAL ---
+center:
+  - type: "script"
+    name: "center-capsule"
+    # %I:%M:%S da la hora con segundos (ej: 04:49:42)
+    cmd: "COUNT=$(swaync-client -c); if [ \"$COUNT\" -gt 0 ]; then echo \"$(date '+%I:%M:%S')      $COUNT\"; else echo \"$(date '+%I:%M:%S')      \"; fi"
+    interval: 1000
+    mode: "poll"
+    on_click_left: "swaync-client -t -sw"
+    on_click_right: "swaync-client -d -sw"
+
+# --- SECCIÓN DERECHA ---
+end:
+# Uso de cpu
+  - type: "script"
+    name: "cpu-uso"
+    mode: "poll"
+    interval: 500
+    format: "{icon} {percentage}%"
+    cmd: |
+      "top -bn1 | grep 'Cpu(s)' | sed 's/.*, *\\([0-9.]*\\)%* id.*/\\1/' | awk '{print \" \" 100 - $1 \"%\"}'" 
+
+# Perfiles de energía (power-profiles-daemon)
+  - type: "script"
+    name: "power-profile"
+    mode: "poll"
+    interval: 100
+    # Al hacer clic cambia cíclicamente: balanced -> performance -> power-saver
+    on_click_left: |
+      CUR=$(powerprofilesctl get)
+      if [ "$CUR" = "balanced" ]; then
+        powerprofilesctl set performance
+      elif [ "$CUR" = "performance" ]; then
+        powerprofilesctl set power-saver
+      else
+        powerprofilesctl set balanced
+      fi
+    # Muestra el icono según el perfil activo
+    cmd: |
+      PROFILE=$(powerprofilesctl get)
+      case "$PROFILE" in
+        "performance") echo "" ;;
+        "balanced")    echo "" ;;
+        "power-saver") echo "" ;;
+        *)             echo "" ;;
+      esac
+
+  # Tray para iconos en segundo plano
+  - type: "tray"
+    name: "system-tray"
+    icon_size: 16
+
+  # Volumen
+  - type: "volume"
+    format: "{icon} {percentage}%"
+
+  # Menú / Hamburguesa
+  - type: "custom"
+    name: "menu-burger"
+    on_click_left: "fuzzel"
+    bar:
+      - type: "label"
+        label: ""
+
+  # Temperatura (sys_info)
+  - type: "sys_info"
+    name: "temp_tag"
+    interval: 2
+    format:
+      - " {temp_c}°C"
+
+# Botón de Apagado con Menú desplegable
+  - type: "custom"
+    name: "power-button"
+    bar:
+      - type: "label"
+        label: "⏻"
+        icon_size: 15
+    popup:
+      - type: "box"
+        orientation: "vertical"
+        widgets:
+          - type: "button"
+            label: " ⏻ Apagar"
+            on_click_left: "systemctl poweroff"
+          - type: "button"
+            label: "  Reiniciar"
+            on_click_left: "systemctl reboot"
+          - type: "button"
+            label: " 󰤄 Suspender"
+            on_click_left: "systemctl suspend"
+          - type: "button"
+            label: " 󰏤 Hibernar"
+            on_click_left: "systemctl hibernate"
