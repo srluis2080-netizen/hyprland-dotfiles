@@ -1,4 +1,4 @@
-# my-dotfile
+# hyprland dotfile
 
 Fastfetch, Kitty y waybar
 
