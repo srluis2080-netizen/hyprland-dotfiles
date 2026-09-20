@@ -24,7 +24,7 @@ Este repositorio está pensado para que puedas **explorar, copiar y pegar** las 
 
 |-Aplicación-|-Función-|-Archivos en este repo-|
 | :--- | :--- | :--- |
-| **Hyprland** | Compositor / Gestor de ventanas Wayland | `hyprland.conf` |
+| **Hyprland** | Compositor / Gestor de ventanas Wayland | `hyprland.conf` `hyprland.lua` |
 | **Hyprlock** | Pantalla de bloqueo | `hyprlock.conf` |
 | **Waybar** | Barra de estado | `waybar.config`, `waybar-style.css`, `waybar-power_menu.xml` |
 | **Ironbar** *(Opcional, no terminada)* | Barra de estado alternativa | `ironbar.yaml`, `ironbar-styles.css` |
@@ -41,7 +41,8 @@ Para usar estas configuraciones en tu sistema, generalmente debes colocarlas den
 ```text
 ~/.config/
 ├── hypr/
-│   ├── hyprland.conf
+│   ├── *hyprland.conf (casi obsoleta)* 
+│   ├── hyprland.lua 
 │   └── hyprlock.conf
 ├── waybar/
 │   ├── config (renombra waybar.config a config)
